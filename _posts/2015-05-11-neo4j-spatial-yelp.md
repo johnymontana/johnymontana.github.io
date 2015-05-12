@@ -41,7 +41,7 @@ Now that we've seen what tools we'll be working with, the first step is to load 
 
 The data consists of an array of JSON objects describing each business. Something like this:
 
-```
+{% highlight json %}
 // from https://www.yelp.com/academic_dataset
 {
   'type': 'business',
@@ -61,7 +61,7 @@ The data consists of an array of JSON objects describing each business. Somethin
   'schools': (nearby universities),
   'url': (yelp url)
 }
-```
+{% endhighlight %}
 
 Lots of interesting data available here but we are only interested in `business_id`, `name`, `latitude`, `longitude`, and `categories`.
 
@@ -95,7 +95,7 @@ I wrote a simple Python script to iterate through all business objects in the da
 I quickly realized that having business category information would make this demo a bit more interesting. Each business has an array of categories to which it belongs. So we now iterate through the dataset again, but this time execute a cypher query that will add a relationship from the Business node to the appropriate Category nodes for each business, creating our Category nodes along the way using a Cypher `MERGE` statement: 
 
 
-```
+{% highlight python %}
 import json
 from py2neo import neo4j
 
@@ -122,7 +122,7 @@ with open('data/yelp_academic_dataset_business.json', 'r') as f:
 				count = 0
 	if count > 0:
 		category_batch.run()
-```
+{% end highlight %}
 
 This script uses the [py2neo](https://github.com/nigelsmall/py2neo) Python library written by [Nigel Small](https://twitter.com/neonige) that allows for easy Neo4j interaction from Python. 
 
@@ -141,7 +141,7 @@ The purpose of this endpoint is to add a given Business into the Spatial layer. 
 
 Handler to create Business node and add to the Spatial index:
 
-```
+{% highlight java %}
 @POST
 @Path("/node")
 public Response addNode(String nodeParamsJson, @Context GraphDatabaseService db) {
@@ -175,7 +175,7 @@ public Response addNode(String nodeParamsJson, @Context GraphDatabaseService db)
     return Response.ok().build();
 
 }
-```
+{% endhighlight %}
 
 We first declare that this method will handle POST requests to `.../node` and that we expect a JSON body string. Next, we get a handle on the `GraphDatabaseServive` and instantiate a new `SpatialDatabaseService`. Really this should only be done once, and then cached for later calls, but I'm just trying to show each handler as a self-enclosed method. Next, we serialize the JSON body to an instance of `BusinessNode` using the [google-gson](https://github.com/google/gson) Java library. `BusinessNode` is a [POJO](http://en.wikipedia.org/wiki/Plain_Old_Java_Object) with instance vars for the properties of our business and the appropriate getters / setters to facilitate serialization with GSON. We then create a new Neo4j node called `businessNode` and set the appropriate properties on this node before committing the transaction. Finally, we get a handle of the Neo4j Spatial point layer and add this newly created `businessNode` to the Spatial layer. Spatial will take care of the appropriate in-graph R-Tree indexing and we can now make spatial query operations on the `businessNode`.
 
