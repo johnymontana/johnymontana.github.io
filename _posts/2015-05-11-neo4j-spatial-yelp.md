@@ -61,7 +61,7 @@ The data consists of an array of JSON objects describing each business. Somethin
   'schools': (nearby universities),
   'url': (yelp url)
 }
-{% endhighlight %}
+{% end highlight %}
 
 Lots of interesting data available here but we are only interested in `business_id`, `name`, `latitude`, `longitude`, and `categories`.
 
@@ -175,7 +175,7 @@ public Response addNode(String nodeParamsJson, @Context GraphDatabaseService db)
     return Response.ok().build();
 
 }
-{% endhighlight %}
+{% end highlight %}
 
 We first declare that this method will handle POST requests to `.../node` and that we expect a JSON body string. Next, we get a handle on the `GraphDatabaseServive` and instantiate a new `SpatialDatabaseService`. Really this should only be done once, and then cached for later calls, but I'm just trying to show each handler as a self-enclosed method. Next, we serialize the JSON body to an instance of `BusinessNode` using the [google-gson](https://github.com/google/gson) Java library. `BusinessNode` is a [POJO](http://en.wikipedia.org/wiki/Plain_Old_Java_Object) with instance vars for the properties of our business and the appropriate getters / setters to facilitate serialization with GSON. We then create a new Neo4j node called `businessNode` and set the appropriate properties on this node before committing the transaction. Finally, we get a handle of the Neo4j Spatial point layer and add this newly created `businessNode` to the Spatial layer. Spatial will take care of the appropriate in-graph R-Tree indexing and we can now make spatial query operations on the `businessNode`.
 
