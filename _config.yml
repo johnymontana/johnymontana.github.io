@@ -5,9 +5,9 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               lyonwj
-tagline:             'William Lyon'
-description:         'Software, technology, etc. By <a href="//twitter.com/lyon">@lyonwj</a>.'
+title:               The Williblog
+tagline:             'Software, technology, startups, etc...'
+description:         'Hi! I''m Will and this is my software, technology, and entrepreneurship blog. You can find more from me <a href="https://twitter.com/lyonwj">@lyonwj</a> and on <a href="http://lyonwj.tumblr.com">tumblr.</a>'
 url:                 http://lyonwj.com
 baseurl:             ''
 paginate:            5
