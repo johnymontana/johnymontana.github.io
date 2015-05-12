@@ -1,4 +1,12 @@
-![](/content/images/2015/05/screenshot.png)
+---
+layout: post
+title: Using Neo4j Spatial and Mapbox to search for businesses by location
+introtext: We show how to load data from the Yelp Academic Dataset into Neo4j, then build a webapp to perform geospatial queries on the data and visualize the results on a map.
+permalink: using-neo4j-spatial-and-leaflet-js-with-mapbox
+mainimage: /public/img/screenshot.png
+---
+
+![](/public/img/screenshot.png)
 
 A common use-case for database queries is to search for things that are close to other things or within some specified geospatial boundary. Geospatial indexes and queries are offered by NoSQL databases, such as [MongoDB](http://docs.mongodb.org/manual/core/geospatial-indexes/) and relational databases such as [PostgreSQL](http://postgis.net/). But what about graph databases? In this article, I show how to create a web application to search within a user-defined boundary powered by the Neo4j graph database.
 
@@ -12,7 +20,7 @@ Our requirements for this web app are:
 
 You can check it out [here](http://spatialcypherdemo.herokuapp.com/), but this is what it looks like:
 
-![spatial query gif](/content/images/2015/05/out.gif)
+![spatial query gif](/public/img/out.gif)
 
 In the rest of this post we'll look at how to build this project.
 
@@ -41,8 +49,10 @@ Now that we've seen what tools we'll be working with, the first step is to load 
 
 The data consists of an array of JSON objects describing each business. Something like this:
 
-{% highlight json %}
+{% highlight js %}
+
 // from https://www.yelp.com/academic_dataset
+
 {
   'type': 'business',
   'business_id': (a unique identifier for this business),
@@ -61,7 +71,7 @@ The data consists of an array of JSON objects describing each business. Somethin
   'schools': (nearby universities),
   'url': (yelp url)
 }
-{% end highlight %}
+{% endhighlight %}
 
 Lots of interesting data available here but we are only interested in `business_id`, `name`, `latitude`, `longitude`, and `categories`.
 
@@ -72,13 +82,13 @@ There are [several](http://neo4j.com/docs/stable/query-load-csv.html) [ways](htt
 
 Including the in-graph spatial index, the data model looks like this:
 
-![](/content/images/2015/05/scdemo_datamodel.png)
+![](/public/img/scdemo_datamodel.png)
 
 ##### Create Business nodes and add to spatial index
 
 I chose to create an [unmanaged server extension](http://neo4j.com/docs/stable/server-unmanaged-extensions.html) for interacting with Spatial using the Java API (more on this in the next section), adding an endpoint for Business node creation. This endpoint takes a JSON object that represents the business to be created and added to the spatial index:
 
-```
+{% highlight json %}
 {
     "business_id": "lajsldkjfaslj48o",
     "name": "Bob's Burgers",
@@ -86,45 +96,48 @@ I chose to create an [unmanaged server extension](http://neo4j.com/docs/stable/s
     "lat": 22.21323,
     "lon": 14.43211
 }
-```
+
+{% endhighlight %}
 
 I wrote a simple Python script to iterate through all business objects in the dataset and make a POST request to our new endpoint. The script is available [here](https://github.com/johnymontana/scdemo/blob/master/yelp_post.py). We should really be posting an array of business objects here, but we'll save that for v2 ;-) More in the next section about how this POST request is actually handled.
 
 ##### Add category relationships to Business nodes
 
-I quickly realized that having business category information would make this demo a bit more interesting. Each business has an array of categories to which it belongs. So we now iterate through the dataset again, but this time execute a cypher query that will add a relationship from the Business node to the appropriate Category nodes for each business, creating our Category nodes along the way using a Cypher `MERGE` statement: 
+I quickly realized that having business category information would make this demo a bit more interesting. Each business has an array of categories to which it belongs. So we now iterate through the dataset again, but this time execute a cypher query that will add a relationship from the Business node to the appropriate Category nodes for each business, creating our Category nodes along the way using a Cypher `MERGE` statement:
 
 
 {% highlight python %}
+
 import json
 from py2neo import neo4j
 
 db = neo4j.GraphDatabaseService("http://server_addr_here:7474/db/data/")
 
 merge_category_query = '''
-    MATCH (b:Business {business_id: {business_id}})
-    MERGE (c:Category {name: {category}})
-    CREATE UNIQUE (c)<-[:IS_IN]-(b)
+  MATCH (b:Business {business_id: {business_id}})
+  MERGE (c:Category {name: {category}})
+  CREATE UNIQUE (c)<-[:IS_IN]-(b)
 '''
 
 print "Beginning category batch"
 with open('data/yelp_academic_dataset_business.json', 'r') as f:
-	category_batch = neo4j.WriteBatch(db)
-	count = 0
-	for b in (json.loads(l) for l in f):
-		for c in b['categories']:
-			category_batch.append_cypher(merge_category_query, {'business_id': b['business_id'], 'category': c})
-			count += 1
-			if count >= 10000:
-				category_batch.run()
-				category_batch.clear()
-				print "Running batch"
-				count = 0
-	if count > 0:
-		category_batch.run()
-{% end highlight %}
+  category_batch = neo4j.WriteBatch(db)
+  count = 0
+  for b in (json.loads(l) for l in f):
+    for c in b['categories']:
+      category_batch.append_cypher(merge_category_query, {'business_id': b['business_id'], 'category': c})
+      count += 1
+      if count >= 10000:
+        category_batch.run()
+        category_batch.clear()
+        print "Running batch"
+        count = 0
+  if count > 0:
+    category_batch.run()
 
-This script uses the [py2neo](https://github.com/nigelsmall/py2neo) Python library written by [Nigel Small](https://twitter.com/neonige) that allows for easy Neo4j interaction from Python. 
+{% endhighlight %}
+
+This script uses the [py2neo](https://github.com/nigelsmall/py2neo) Python library written by [Nigel Small](https://twitter.com/neonige) that allows for easy Neo4j interaction from Python.
 
 
 
@@ -145,37 +158,35 @@ Handler to create Business node and add to the Spatial index:
 @POST
 @Path("/node")
 public Response addNode(String nodeParamsJson, @Context GraphDatabaseService db) {
-    Node businessNode;
+  Node businessNode;
 
-    SpatialDatabaseService spatialDB = new SpatialDatabaseService(db);
+  SpatialDatabaseService spatialDB = new SpatialDatabaseService(db);
 
-    Gson gson = new Gson();     
-    BusinessNode business = gson.fromJson(nodeParamsJson, BusinessNode.class);
+  Gson gson = new Gson();
+  BusinessNode business = gson.fromJson(nodeParamsJson, BusinessNode.class);
 
-    try ( Transaction tx = db.beginTx()) {
+  try ( Transaction tx = db.beginTx()) {
+    businessNode = db.createNode();
+    businessNode.addLabel(Labels.Business);
+    businessNode.setProperty("business_id", business.getBusiness_id());
+    businessNode.setProperty("name", business.getName());
+    businessNode.setProperty("address", business.getAddresss());
+    businessNode.setProperty("lat", business.getLat());
+    businessNode.setProperty("lon", business.getLon());
+    tx.success();
+  }
 
-        businessNode = db.createNode();
-        businessNode.addLabel(Labels.Business);
-        businessNode.setProperty("business_id", business.getBusiness_id());
-        businessNode.setProperty("name", business.getName());
-        businessNode.setProperty("address", business.getAddresss());
-        businessNode.setProperty("lat", business.getLat());
-        businessNode.setProperty("lon", business.getLon());
-        tx.success();
-    }
+  try (Transaction tx = db.beginTx()) {
+    Layer businessLayer = spatialDB.getOrCreatePointLayer("business", "lat", "lon");
+    businessLayer.add(businessNode);
+    tx.success();
+  }
 
-        try (Transaction tx = db.beginTx()) {
-
-        Layer businessLayer = spatialDB.getOrCreatePointLayer("business", "lat", "lon");
-
-        businessLayer.add(businessNode);
-        tx.success();
-    }
-
-    return Response.ok().build();
+  return Response.ok().build();
 
 }
-{% end highlight %}
+
+{% endhighlight %}
 
 We first declare that this method will handle POST requests to `.../node` and that we expect a JSON body string. Next, we get a handle on the `GraphDatabaseServive` and instantiate a new `SpatialDatabaseService`. Really this should only be done once, and then cached for later calls, but I'm just trying to show each handler as a self-enclosed method. Next, we serialize the JSON body to an instance of `BusinessNode` using the [google-gson](https://github.com/google/gson) Java library. `BusinessNode` is a [POJO](http://en.wikipedia.org/wiki/Plain_Old_Java_Object) with instance vars for the properties of our business and the appropriate getters / setters to facilitate serialization with GSON. We then create a new Neo4j node called `businessNode` and set the appropriate properties on this node before committing the transaction. Finally, we get a handle of the Neo4j Spatial point layer and add this newly created `businessNode` to the Spatial layer. Spatial will take care of the appropriate in-graph R-Tree indexing and we can now make spatial query operations on the `businessNode`.
 
@@ -183,8 +194,9 @@ We first declare that this method will handle POST requests to `.../node` and th
 
 The other endpoint we add in our server extension executes the spatial query. We send it a business category and a polygon and in return we get an array of all businesses within that polygon that match the business category.
 
-Handler to query within polygon
-```
+Handler to query within polygon:
+
+{% highlight java %}
 @GET
 @Path("/intersects/")
 public Response getBusinessesInPolygon(@QueryParam("polygon") String polygon, @QueryParam("category") String category, @Context GraphDatabaseService db) throws IOException, ParseException{
@@ -224,7 +236,8 @@ public Response getBusinessesInPolygon(@QueryParam("polygon") String polygon, @Q
     ObjectMapper objectMapper = new ObjectMapper();
     return Response.ok().entity(objectMapper.writeValueAsString(resultsArray)).build();
 }
-```
+
+{% endhighlight %}
 
 Here we define the handler of a GET request and specify two string query parameters: the polygon, as a [WKT string](http://en.wikipedia.org/wiki/Well-known_text), and the business category. We instantiate a new `SpatialDatabaseService` and get a handle on our Spatial Layer `businessLayer`. We then use Spatial's `SearchIntersect` query to perform a spatial query within our `businessLayer` to find any Nodes intersecting the polygon. We then iterate through the results and build up an array of `HashMap` objects with the business name, latitude and longitude to return as JSON.
 
@@ -234,11 +247,12 @@ Now that we've imported the data into Neo4j, set up our spatial index, and have 
 
 ##### Load the map
 
-We will use the excellent [Mapbox.js](https://www.mapbox.com/mapbox.js/) JavaScript library to facilitate this. Mapbox.js is an extension to the [Lealet.js](http://leafletjs.com/) library that adds some functionality and makes working with Mapbox tile servers a breeze. 
+We will use the excellent [Mapbox.js](https://www.mapbox.com/mapbox.js/) JavaScript library to facilitate this. Mapbox.js is an extension to the [Lealet.js](http://leafletjs.com/) library that adds some functionality and makes working with Mapbox tile servers a breeze.
 
 First we'll need to display the map, enable polygon drawing and define which functions should be called once the polygon is drawn or an existing polygon edited:
 
-```
+{% highlight js %}
+
 L.mapbox.accessToken = 'MAPBOX_TOKEN_HERE';
 var map = L.mapbox.map('map', 'MAP_ID_HERE')
     .setView([33.47870401153533, -112.0305061340332], 14);
@@ -278,13 +292,15 @@ $("#category").change(function() {
         });
       }
 });
-```
+
+{% endhighlight %}
 
 ##### Handlers for polygon drawing / editing
 
 Here we build a WKT Polygon string from the user defined polygon and make an AJAX request to our Neo4j server extension to perform the spatial query to find all businesses within our polygon / category:
 
-```
+{% highlight js %}
+
 function showPolygonMarkersEdited(e) {
       e.layers.eachLayer(function(layer) {
         showPolygonMarkers({ layer: layer });
@@ -295,20 +311,20 @@ function showPolygonMarkersEdited(e) {
       console.log($("#category").val());
       featureGroup.clearLayers();
       featureGroup.addLayer(e.layer);
-  
+
       coords = e.layer['_latlngs']
       first = coords[0]['lat'] + " " + coords[0]['lng']+", "
       wkt = "POLYGON (("
       coords.forEach(getCoords)
       wkt = wkt + first.substring(0, first.length-2) + "))"
       console.log(wkt)
-      
+
       current_poly = wkt
       data = {polygon: wkt, category: $("#category").val()}
       success = function(data){
         console.log(data)
       }
-      
+
       $.ajax({
         url: url,
         data: data,
@@ -321,18 +337,21 @@ function showPolygonMarkersEdited(e) {
       console.log(group)
       wkt = wkt + group
     }
-```
+
+{% endhighlight %}
 
 ##### Render the markers on Ajax success
 
 Now we just need to create markers for each business in the JSON array that comes back from our server extension and add that layer to the map:
-```
+
+{% highlight js %}
+
 function dataToMarkers(data) {
-        data = JSON.parse(data)       
+        data = JSON.parse(data)
         var geojson = { type: 'FeatureCollection', features: [] };
-        
+
         for (var i = 0; i < data.length; i++) {
-        
+
         if (data[i].lon === null || data[i].lat === null) continue;
         geojson.features.push({
           type: 'Feature',
@@ -350,9 +369,10 @@ function dataToMarkers(data) {
       dataLayer.setGeoJSON([]);
       dataLayer.setGeoJSON(geojson);
       }
-```
 
-Well that's about it. You can see the demo live [here](http://spatialcypherdemo.herokuapp.com). The full code is available on my [GitHub](http://github.com/johnymontana) page. Code for the Neo4j server extension is available [here](https://github.com/johnymontana/scdemo-extension) and code for data import and the web app is available in [this repository](https://github.com/johnymontana/scdemo). 
+{% endhighlight %}
+
+Well that's about it. You can see the demo live [here](http://spatialcypherdemo.herokuapp.com). The full code is available on my [GitHub](http://github.com/johnymontana) page. Code for the Neo4j server extension is available [here](https://github.com/johnymontana/scdemo-extension) and code for data import and the web app is available in [this repository](https://github.com/johnymontana/scdemo).
 
 If you'd like to be notified when I publish more posts like this, you can [follow me on Twitter](http://twitter.com/lyonwj).
 
