@@ -2,7 +2,7 @@
 layout: post
 title: Visualizing Correlates of War Data With Leaflet.js
 introtext: Using data about global militarized interstate disputes (wars) we build some geospatial visualizations to analyze data about war fatalities throughout history.
-permalink: visualizing-correlates-of-war-date-with-leaflet-js
+permalink: visualizing-correlates-of-war-date-with-leaftlet-js
 mainimage: /public/img/Screen_Shot_2014_02_11_at_6_35_53_PM.png
 ---
 
