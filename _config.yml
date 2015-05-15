@@ -5,9 +5,9 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               The Williblog
+title:               William Lyon
 tagline:             'Software, technology, startups, etc...'
-description:         'Hi! I''m Will and this is my software, technology, and entrepreneurship blog. You can find more from me <a href="https://twitter.com/lyonwj">@lyonwj</a> and on <a href="http://lyonwj.tumblr.com">tumblr.</a>'
+description:         'Hi! I''m Will and this is where I write about software, technology, and startup stuff. You can find more from me <a href="https://twitter.com/lyonwj">@lyonwj</a> and on <a href="http://lyonwj.tumblr.com">tumblr.</a>'
 url:                 http://lyonwj.com
 baseurl:             ''
 paginate:            5
