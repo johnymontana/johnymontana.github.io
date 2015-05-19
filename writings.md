@@ -3,7 +3,7 @@ layout: page
 title: Writings and Presentations
 ---
 
-
+* **[An Adaptive Hybrid Method for Link Prediction in Multi-Modal Directed Complex Networks Using the Graph Traversal Pattern](http://scholarworks.umt.edu/cgi/viewcontent.cgi?article=5386&context=etd)** - Masters thesis. December 2014.
 * **[Thinking In Graphs - An Introduction To Neo4j](https://copy.com/lhDFPyRjZYyw8LIp)** - presented with George Lesica at Montana Programmers meetup. September 2014.
 * **[Graph Based Link Prediction In A Social-Collaboration Network](https://dl.dropboxusercontent.com/u/67572426/WilliamLyonFinalProjec.pdf)** - final project for graduate Machine Learning course. Spring 2014
 * **[Data Mining and Machine Learning Applied To A Software Development Social Collaboration Network](https://dl.dropboxusercontent.com/u/67572426/github_poster.pdf)** - presented at University of Montana Research Conference 2014.
