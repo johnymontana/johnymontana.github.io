@@ -89,8 +89,11 @@ access_token = 'xxx'
 access_token_secret = 'xxx'
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
+
 api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
 ids = api.friends_ids()
+urls = []
+
 for friend in ids:
     statuses = api.user_timeline(id=friend, count=200)
     for status in statuses:
