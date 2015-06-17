@@ -413,5 +413,5 @@ All Python code is available [here](https://github.com/johnymontana/nlp-graph-no
 <meta name="twitter:title" content="Natural Language Processing With Neo4j - Mining Paradigmatic Word Associations">
 <meta name="twitter:description" content="Discovering paradigmatic word associations is one of the core tasks of Natural Language Processing. In this post we explore a graph based method for mining paradigmatic word associations from a text corpus.">
 <meta name="twitter:creator" content="@lyonwj">
-<meta name="twitter:image:src" content="http://lyonwj.com/content/images/2015/06/second_sentence.png">
+<meta name="twitter:image:src" content="http://www.lyonwj.com/public/img/second_sentence.png">
 <meta name="twitter:domain" content="lyonwj.com">
