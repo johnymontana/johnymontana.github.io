@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Graphing Congressional Data With Govtrack and Neo4j
+title: Introducing legis-graph - US Congressional Data With Govtrack and Neo4j
 introtext: Interactions among members of any large organization are naturally a graph, yet the tools we use to analyze data about these organizations often ignore the graphiness of the data and instead map the data into structures (such as relational databases) that make taking advantage of the relationships in the data much more difficult when it comes time to analyze the data. Collaboration networks are a perfect example. So let's focus on one of the most powerful collaboration networks in the world, the US Congress.
 mainimage: /public/img/lgdatamodel.png
 ---
