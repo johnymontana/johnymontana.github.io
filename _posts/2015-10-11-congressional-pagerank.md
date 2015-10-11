@@ -270,7 +270,8 @@ If you are a social scientist, or anyone interested in working with Congressiona
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@lyonwj">
-<meta name="twitter:title" content="This post shows how we can apply graph analytics to US Congressional data to find influential legislators in Congress. Using the Mazerunner open source graph analytics project we are able to use Apache Spark GraphX alongside Neo4j to run the PageRank algorithm on a collaboration graph of US Congress.">
+<meta name="twitter:title" content="Congressional PageRank - Analyzing US Congress With Neo4j and Apache Spark">
+<meta name="twitter:description" content="This post shows how we can apply graph analytics to US Congressional data to find influential legislators in Congress. Using the Mazerunner open source graph analytics project we are able to use Apache Spark GraphX alongside Neo4j to run the PageRank algorithm on a collaboration graph of US Congress.">
 <meta name="twitter:creator" content="@lyonwj">
 <meta name="twitter:image:src" content="http://www.lyonwj.com/public/img/pgheaderimg.png">
 <meta name="twitter:domain" content="lyonwj.com">
