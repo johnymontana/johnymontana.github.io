@@ -48,9 +48,14 @@ I recently moved to California and realized I know pretty much *nothing* about p
 
 An easy start, tell me the names of California's elected representatives in Congress.
 
+{% highlight cypher %}
+
+MATCH (s:State {code: "CA"})<-[:REPRESENTS]-(l:Legislator)
+RETURN l.firstName + " " + l.lastName as Legislator;
+
+{% endhighlight %}
+
 ~~~
-neo4j-sh (?)$ MATCH (s:State {code: 'CA'})<-[:REPRESENTS]-(l:Legislator)
-> RETURN l.firstName + ' ' + l.lastName as Legislator;
 +-------------------------+
 | Legislator              |
 +-------------------------+
@@ -112,18 +117,22 @@ neo4j-sh (?)$ MATCH (s:State {code: 'CA'})<-[:REPRESENTS]-(l:Legislator)
 +-------------------------+
 55 rows
 83 ms
-
 ~~~
 
 OK, so California has lots of members of Congress. How many are from which parties?
 
 **Breakdown by party**
 
+{% highlight cypher %}
+
+MATCH (s:State {code: "CA"})<-[:REPRESENTS]-(l:Legislator)
+MATCH (l)-[r:IS_MEMBER_OF]->(p:Party)
+WITH p.name as party, count(r) as num
+RETURN party, num;
+
+{% endhighlight %}
+
 ~~~
-neo4j-sh (?)$ MATCH (s:State {code: 'CA'})<-[:REPRESENTS]-(l:Legislator)
-> MATCH (l)-[r:IS_MEMBER_OF]->(p:Party)
-> WITH p.name as party, count(r) as num
-> RETURN party, num;
 +--------------------+
 | party        | num |
 +--------------------+
@@ -132,7 +141,6 @@ neo4j-sh (?)$ MATCH (s:State {code: 'CA'})<-[:REPRESENTS]-(l:Legislator)
 +--------------------+
 2 rows
 56 ms
-
 ~~~
 
 So California is definitely a blue state...
@@ -240,13 +248,18 @@ RETURN ca, senate, l, c, b, s
 
 We can draw more insight from the data if we count the number of bills referred to these Committees for each subject.
 
+{% highlight cypher %}
+
+MATCH (s:State {code: "CA"})<-[:REPRESENTS]-(l:Legislator)
+MATCH (l)-[:ELECTED_TO]->(b:Body) WHERE b.type="Senate"
+MATCH (l)-[:SERVES_ON]-(c:Committee)<-[:REFERRED_TO]-(bill:Bill)
+MATCH (bill)-[r:DEALS_WITH]->(subject:Subject)
+WITH count(r) as num, subject
+RETURN subject.title AS subject, num ORDER BY num DESC LIMIT 25;
+
+{% endhighlight %}
+
 ~~~
-neo4j-sh (?)$ MATCH (s:State {code: 'CA'})<-[:REPRESENTS]-(l:Legislator)
-> MATCH (l)-[:ELECTED_TO]->(b:Body) WHERE b.type='Senate'
-> MATCH (l)-[:SERVES_ON]-(c:Committee)<-[:REFERRED_TO]-(bill:Bill)
-> MATCH (bill)-[r:DEALS_WITH]->(subject:Subject)
-> WITH count(r) as num, subject
-> RETURN subject.title AS subject, num ORDER BY num DESC LIMIT 25;
 +------------------------------------------------------------+
 | subject                                              | num |
 +------------------------------------------------------------+
