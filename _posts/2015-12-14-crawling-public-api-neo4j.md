@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Crawling APIs Using Neo4j - Building The Wookieepedia Graph
+title: Crawling APIs Using Neo4j - Building The Star Wars Graph
 introtext: A common task when working with data from APIs is crawling the API and inserting the results in a database. In this example we'll import data into Neo4j by crawling a public API, building a graph in Neo4j as we go along. We'll use Neo4j as a queuing mechanism to store URLs for placeholder resources waiting to be fetched.
 mainimage: /public/img/swapi.png
 ---
@@ -21,7 +21,7 @@ To see the full example please check out the iPython Notebook [here](http://nbvi
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@lyonwj">
-<meta name="twitter:title" content="Crawling APIs Using Neo4j - Building The Wookieepedia Graph">
+<meta name="twitter:title" content="Crawling APIs Using Neo4j - Building The Star Wars Graph">
 <meta name="twitter:description" content="A common task when working with data from APIs is crawling the API and inserting the results in a database. In this example we'll import data into Neo4j by crawling a public API, building a graph in Neo4j as we go along. We'll use Neo4j as a queuing mechanism to store URLs for placeholder resources waiting to be fetched.">
 <meta name="twitter:creator" content="@lyonwj">
 <meta name="twitter:image:src" content="http://www.lyonwj.com/public/img/swapi.png">
