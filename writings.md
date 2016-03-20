@@ -62,7 +62,7 @@ title: Writings and Presentations
 * iOS Programming With Swift - Universidad Catholica - 4/21
 
 
-## 20014
+## 2014
 
 * **[An Adaptive Hybrid Method for Link Prediction in Multi-Modal Directed Complex Networks Using the Graph Traversal Pattern](http://scholarworks.umt.edu/cgi/viewcontent.cgi?article=5386&context=etd)** - Masters thesis. December 2014.
 * **[Thinking In Graphs - An Introduction To Neo4j](https://copy.com/lhDFPyRjZYyw8LIp)** - presented with George Lesica at Montana Programmers meetup. September 2014.
