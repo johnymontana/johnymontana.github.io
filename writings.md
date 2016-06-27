@@ -5,49 +5,30 @@ title: Writings and Presentations
 
 ## 2016
 
-### January
-
-* **[Congressional PageRank: Graph Analytics of US Congress](http://www.meetup.com/graphdb-sf/events/228011664/)** Graph Database SF Meetup - 1/19 *[Slides](https://dl.dropboxusercontent.com/u/67572426/presentations/congressional-pagerank-sfgraphdb.pdf)*
-* **[Natural Language Processing with Graph Databases]()** Data Day Texas Conference - 1/16
-
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/3ecfv0BUhHQJAs" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px">  </div>
-
-* **[Congressional PageRank - Analyzing US Congress With Neo4j And Apache Spark]()** [Graph Day Texas](http://graphday.com/) - 1/17
-
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/rXF8KQwa33wYu5" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> </div>
-
-* **[Webinar: Introduction to Neo4j](http://info.neo4j.com/intro-to-graph-databases.html)** - 1/14
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/83P81ebgCxA" frameborder="0" allowfullscreen></iframe>
-
-* **[Polyglot persistence with Neo4j and MongoDB](http://www.meetup.com/Graph-Nerds-of-Boulder/events/226570089/)** Graph Nerds of Boulder Meetup Boulder, CO *[Slides](https://dl.dropboxusercontent.com/u/67572426/neo4j_mongodb.pdf)* - 1/7
-* **[Finding Influential Legislators with Graph Analytics](http://www.meetup.com/Analyze-Boulder/events/226345384/)** Analyze Boulder Meetup Boulder, CO *[Slides](https://dl.dropboxusercontent.com/u/67572426/legis-graph-AB.pdf)* - 1/6
-
-### February
-
-* **[NoSQL Polyglot Persistence: Neo4j + Cassandra]()** SF Graph Database Meetup*[Slides](https://dl.dropboxusercontent.com/u/67572426/presentations/neo4j_cassandra_02_24.pdf)* - 2/24
-* **[Webinar: Natural Language Processing with Graphs](http://info.neo4j.com/natural-language-processing-with-graphs.html)** - 2/18
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BVMx24dtko0" frameborder="0" allowfullscreen></iframe>
-
-### March
-
-* Fundamentals of Neo4j training - Denver 3/14
-* NICAR - 3/11
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/vTzNv05bz4hOy6" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> </div>
-* NLP meetup, Boulder, CO - 3/10
-* Strata + Hadoop World - 3/30
-
-### April
-
-* NoSQL Now
+* IRE
+* BigSkyDevCon
+* PyCon poster session. [Neo4j Doc Manager: Graph Database Polyglot Persistence.](https://dl.dropboxusercontent.com/u/67572426/presentations/pycon.pdf)
+* Portland meetup. 5.31
+* RecSys training Denver. 05.27
+* GlueCon polyglot talk
+* Denver Fundamentals training. 05.23
+* RecSys Training. SF. 05/13
+* 3.0 webinar. 05/05
+* Austin meetup
 * GraphConnect
-
-
-### May
-
-### June
-
+* NoSQL Now / Enterprise Data World. San Diego.
+* Strata + Hadoop World - 3/30
+* NLP meetup, Boulder, CO - 3/10
+* NICAR - 3/11
+* Fundamentals of Neo4j training - Denver 3/14
+* **[Webinar: Natural Language Processing with Graphs](http://info.neo4j.com/natural-language-processing-with-graphs.html)** - 2/18
+* **[NoSQL Polyglot Persistence: Neo4j + Cassandra]()** SF Graph Database Meetup*[Slides](https://dl.dropboxusercontent.com/u/67572426/presentations/neo4j_cassandra_02_24.pdf)* - 2/24
+* **[Finding Influential Legislators with Graph Analytics](http://www.meetup.com/Analyze-Boulder/events/226345384/)** Analyze Boulder Meetup Boulder, CO *[Slides](https://dl.dropboxusercontent.com/u/67572426/legis-graph-AB.pdf)* - 1/6
+* **[Polyglot persistence with Neo4j and MongoDB](http://www.meetup.com/Graph-Nerds-of-Boulder/events/226570089/)** Graph Nerds of Boulder Meetup Boulder, CO *[Slides](https://dl.dropboxusercontent.com/u/67572426/neo4j_mongodb.pdf)* - 1/7
+* **[Webinar: Introduction to Neo4j](http://info.neo4j.com/intro-to-graph-databases.html)** - 1/14
+* **[Congressional PageRank - Analyzing US Congress With Neo4j And Apache Spark]()** [Graph Day Texas](http://graphday.com/) - 1/17
+* **[Natural Language Processing with Graph Databases]()** Data Day Texas Conference - 1/16
+* **[Congressional PageRank: Graph Analytics of US Congress](http://www.meetup.com/graphdb-sf/events/228011664/)** Graph Database SF Meetup - 1/19 *[Slides](https://dl.dropboxusercontent.com/u/67572426/presentations/congressional-pagerank-sfgraphdb.pdf)*
 
 
 ## 2015
