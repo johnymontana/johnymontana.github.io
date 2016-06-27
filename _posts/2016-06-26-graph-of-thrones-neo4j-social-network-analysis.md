@@ -533,7 +533,7 @@ RETURN cluster, members ORDER BY cluster ASC
   └───────┴───────────────────────────────────────────────────────────────────────────┘
 ~~~
 
-## Visualization - putting it all together
+## <a name="viz"></a> Visualization - putting it all together
 
 ![](/public/img/graph-of-thrones.png)
 **The graph of thrones. Node size is proportional to betweenness centrality, colors indicate the cluster of the node as determined by the walktrap method, and the edge thickness is proprtional to the number of interactions between two characters.**
