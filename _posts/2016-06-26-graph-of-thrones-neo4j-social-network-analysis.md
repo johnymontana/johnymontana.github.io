@@ -7,7 +7,7 @@ mainimage: /public/img/graph-of-thrones.png
 
 ![](/public/img/graphs-are-coming.jpg){: .center-image}
 
-A few months ago, mathematicians [Andrew Beveridge](https://twitter.com/mathbeveridge) and Jie Shan published [Network of Thrones](https://www.macalester.edu/~abeverid/thrones.html) in Math Horizon Magazine where they analyzed a network of character interactions from the novel "A Strom of Swords", the third book in the poopular "A Song of Ice and Fire" and the basis for the Game of Thrones TV series. In their paper their detail how they constructed the network of character interactions by using text analysis and entity extraction to find characters mentioned together in the text. They then applied social network analysis algorithms to the network to find the most important characters in the network and a community detection algorithm to find clusters of characters.
+A few months ago, mathematicians [Andrew Beveridge](https://twitter.com/mathbeveridge) and Jie Shan published [Network of Thrones](https://www.macalester.edu/~abeverid/thrones.html) in Math Horizon Magazine where they analyzed a network of character interactions from the novel "A Storm of Swords", the third book in the popular "A Song of Ice and Fire" and the basis for the Game of Thrones TV series. In their paper they detail how they constructed the network of character interactions by using text analysis and entity extraction to find characters mentioned together in the text. They then applied social network analysis algorithms to the network to find the most important characters in the network and a community detection algorithm to find clusters of characters.
 
 <!-- ![](/public/img/got-network-macalester.png)
  /**The network of thrones graph visualization as published in Math Horizon Magazeine. [IMAGE CREDIT](https://www.macalester.edu/~abeverid/thrones.html - Image credit)**
@@ -17,7 +17,7 @@ The analysis and visualization was done using Gephi, a popular graph analytics t
 
 # Import initial data into Neo4j
 
-The data was made available on [the author's website](https://www.macalester.edu/~abeverid/thrones.html) which you can download [here.](https://www.macalester.edu/~abeverid/data/stormofswords.csv) It looks like this:
+The data was made available on [the authors' website](https://www.macalester.edu/~abeverid/thrones.html) which you can download [here.](https://www.macalester.edu/~abeverid/data/stormofswords.csv) It looks like this:
 
 ```
 Source,Target,Weight
@@ -27,9 +27,9 @@ Aerys,Jaime,18
 ...
 ```
 
-Here we have an adjacency list of characters and their number of interactions throughout the text. We will use a simple data model `(:Character {name})-[:INTERACTS]->(:Character {name})`. Nodes with the label `Character` to represent characters from the text, with a single relationship type `INTERACTS` connecting characters who have interacted in the text. We'll store the character's name as property `name` on the node and the number of interactions between two characters as a propety `weight` on the relationships.
+Here we have an adjacency list of characters and their number of interactions throughout the text. We will use a simple data model `(:Character {name})-[:INTERACTS {weight}]->(:Character {name})`. Nodes with the label `Character` to represent characters from the text, with a single relationship type `INTERACTS` connecting characters who have interacted in the text. We'll store the character's name as property `name` on the node and the number of interactions between two characters as a property `weight` on the relationships.
 
-We first must create a uniqueness constraint to assert the integrity of our schema:
+We first must create a constraint to assert the integrity of our schema:
 
 {% highlight cypher %}
 
@@ -37,7 +37,7 @@ CREATE CONSTRAINT ON (c:Character) ASSERT c.name IS UNIQUE;
 
 {% endhighlight %}
 
-Once the constraint is craeated (this statement will also build an index which will improve the performance of lookups by character name) we can use the Cypher `LOAD CSV` statement to import the data:
+Once the constraint is created (this statement will also build an index which will improve the performance of lookups by character name) we can use the Cypher `LOAD CSV` statement to import the data:
 
 {% highlight cypher %}
 
@@ -45,7 +45,7 @@ LOAD CSV WITH HEADERS FROM "https://www.macalester.edu/~abeverid/data/stormofswo
 MERGE (src:Character {name: row.Source})
 MERGE (tgt:Character {name: row.Target})
 MERGE (src)-[r:INTERACTS]->(tgt)
-SET r.weight = toInt(row.Weight)
+ON CREATE SET r.weight = toInt(row.Weight)
 
 {% endhighlight %}
 
@@ -111,7 +111,7 @@ RETURN min(num) AS min, max(num) AS max, avg(num) AS avg_characters, stdev(num) 
 
 ## Diameter of the network
 
-The diameter (or geodesic) or a network is defined as the longest shortest path in the network.
+The diameter (or geodesic) of a network is defined as the longest shortest path in the network.
 
 {% highlight cypher %}
 // Find maximum diameter of network
@@ -223,8 +223,8 @@ Degree centrality is simply the number of connections that a node has in the the
 
 {% highlight cypher %}
 
-MATCH (c:Character)-[:INTERACTS]-()
-RETURN c.name AS character, count(*) AS degree ORDER BY degree DESC
+MATCH (c:Character)
+RETURN c.name AS character, size( (c)-[:INTERACTS]-() ) AS degree ORDER BY degree DESC
 
 {% endhighlight %}
 
