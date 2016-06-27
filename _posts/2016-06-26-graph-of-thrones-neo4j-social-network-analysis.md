@@ -585,6 +585,9 @@ Neovis.js takes care of pulling the data from Neo4j and creating the visualizati
 * A. Beveridge and J. Shan, ["Network of Thrones"](http://www.maa.org/sites/default/files/pdf/Mathhorizons/NetworkofThrones%20%281%29.pdf) Math Horizons Magazine , Vol. 23, No. 4 (2016), pp. 18-22.
 * J. Kleinberg and D. Easley, [Networks, Crowds, and Markets: Reasoning About a Highly Connected World.](https://www.cs.cornell.edu/home/kleinber/networks-book/)  Cambridge University Press (2010)
 
+
+All code is [available on Github.](https://github.com/johnymontana/graph-of-thrones/blob/master/network-of-thrones.ipynb)
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@lyonwj">
 <meta name="twitter:title" content="Analyzing the Graph of Thrones - Network Analysis with Neo4j">
