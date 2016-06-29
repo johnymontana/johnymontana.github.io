@@ -345,7 +345,7 @@ RETURN node.name AS name, score ORDER BY score DESC
 [Closeness centrality](https://en.wikipedia.org/wiki/Centrality#Closeness_centrality) is the inverse of the average distance to all other characters in the network. Nodes with high closeness centality are often highly connected within clusters in the graph, but not necessarily highly connected outside of the cluster.
 
 ![](/public/img/closeness-centrality.png){: .center-image}
-**Nodes with high closeness centraality are connected to many other nodes in a network. [Image credit](https://www.linkedin.com/pulse/wtf-do-you-actually-know-who-influencers-walter-pike)**
+**Nodes with high closeness centrality are connected to many other nodes in a network. [Image credit](https://www.linkedin.com/pulse/wtf-do-you-actually-know-who-influencers-walter-pike)**
 
 {% highlight cypher %}
 MATCH (c:Character)
