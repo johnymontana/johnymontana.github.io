@@ -106,15 +106,22 @@ Now that the `District` nodes have been added to the spatial layer, we can perfo
 
 {% highlight cypher %}
 
-CALL spatial.withinDistance('geom', {latitude: 37.563440, longitude: -122.322265}, 1) YIELD node AS d
+CALL spatial.withinDistance('geom',
+  {latitude: 37.563440, longitude: -122.322265}, 1) YIELD node AS d
 WITH d, d.wkt AS wkt, d.state AS state, d.district AS district LIMIT 1
 MATCH (d)<-[:REPRESENTS]-(l:Legislator)
 MATCH (l)-[:SERVES_ON]->(c:Committee)
 MATCH (c)<-[:REFERRED_TO]-(b:Bill)
 MATCH (b)-[:DEALS_WITH]->(s:Subject)
-WITH wkt, state, district, l.govtrackID AS govtrackID, l.lastName AS lastName, l.firstName AS firstName, l.currentParty AS party, s.title AS subject, count(*) AS strength, collect(DISTINCT c.name) AS committees ORDER BY strength DESC LIMIT 10
-WITH wkt, state, district, {lastName: lastName, firstName: firstName, govtrackID: govtrackID, party: party, committees: committees} AS legislator, collect({subject: subject, strength: strength}) AS subjects
-RETURN {legislator: legislator, subjects: subjects, state: state, district: district} AS r, wkt LIMIT 1
+WITH wkt, state, district, l.govtrackID AS govtrackID, l.lastName AS lastName,
+  l.firstName AS firstName, l.currentParty AS party, s.title AS subject,
+  count(*) AS strength, collect(DISTINCT c.name) AS committees
+ORDER BY strength DESC LIMIT 10
+WITH wkt, state, district, {lastName: lastName, firstName: firstName,
+  govtrackID: govtrackID, party: party, committees: committees} AS legislator,
+  collect({subject: subject, strength: strength}) AS subjects
+RETURN {legislator: legislator, subjects: subjects, state: state,
+  district: district} AS r, wkt LIMIT 1
 
 {% endhighlight %}
 
