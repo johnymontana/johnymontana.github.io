@@ -5,7 +5,7 @@ introtext: Updating legis-graph-spatial to make use of the new spatial procedure
 mainimage: /public/img/spatial_query.png
 ---
 
-Neo4j 3.0 introduced the concept of [user defined procedures](): code written in Java (or any JVM language) that is deployed to the database and callable from Cypher. User defined procedures are an alternative to unmanaged extensions, with the key difference that user defined procedures are callable from Cypher (instead of extending the http REST endpoints). This allows for an alternative API for [Neo4j's spatial extension](https://github.com/neo4j-contrib/spatial) - namely, exposing Neo4j Spatial's functionality through Cypher!
+Neo4j 3.0 introduced the concept of [user defined procedures](https://neo4j.com/docs/developer-manual/current/procedures/): code written in Java (or any JVM language) that is deployed to the database and callable from Cypher. User defined procedures are an alternative to unmanaged extensions, with the key difference that user defined procedures are callable from Cypher (instead of extending the http REST endpoints). This allows for an alternative API for [Neo4j's spatial extension](https://github.com/neo4j-contrib/spatial) - namely, exposing Neo4j Spatial's functionality through Cypher!
 
 ![](/public/img/spatial_query.png){: .center-image}
 
@@ -77,6 +77,15 @@ mvn clean install -DskipTests
 cp target/neo4j-spatial-0.20-neo4j-3.0.3-server-plugin.jar $NEO4J_HOME/plugins/.
 $NEO4J_HOME/bin/neo4j restart
 
+{% endhighlight %}
+
+
+Instead of building spatial you can also download the spatial plugin jar file from Github:
+
+{% highlight shell %}
+wget https://github.com/neo4j-contrib/m2/blob/master/releases/org/neo4j/neo4j-spatial/0.20-neo4j-3.0.3/neo4j-spatial-0.19-neo4j-3.0.3-server-plugin.jar?raw=true
+cp neo4j-spatial-0.20-neo4j-3.0.3-server-plugin.jar $NEO4J_HOME/plugins/.
+$NEO4J_HOME/bin/neo4j restart
 {% endhighlight %}
 
 Then I used the [legis-graph import script](https://github.com/legis-graph/legis-graph/blob/master/quickstart/114/legis_graph_import_114.cypher) with the [LazyWebCypher tool for easily running multi statement Cypher scripts](http://www.lyonwj.com/LazyWebCypher/?file=https://raw.githubusercontent.com/legis-graph/legis-graph/master/quickstart/114/legis_graph_import_114.cypher) from the browser to load legis-graph data for the 114th Congress.
