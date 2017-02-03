@@ -153,7 +153,7 @@ Now we're ready to import the data into the Trumpworld graph. We'll end running 
 ~~~
 LOAD CSV WITH HEADERS 
 FROM "file:///2016_All_Contracts_Full_20170115.csv" AS row
-WITH row LIMIT 500000
+
 MATCH (o:Organization) WHERE o.name = row.vendorname
 
 WITH o,row.piid AS piid, 
