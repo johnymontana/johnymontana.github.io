@@ -301,12 +301,12 @@ This is of course the contract that [allows the Secret Service to rent space in 
 
 ## What can you find?
 
-All of the data and queries used here are public, so feel free to reproduce the data in your own instance of Neo4j. Neo4j is open source and free to use, you can get it [here](//neo4j.com/download). To make working with this data even easier, I'm hosting a Neo4j instance with this data already loaded. In addition there are some embedded Neo4j Browser Guides for working with the dataset (introducing Cypher, interesting queries, applying social network analysis techniques to the dataset, etc. )  
+All of the data and queries used here are public, so feel free to reproduce the data in your own instance of Neo4j. Neo4j is open source and free to use, you can get it [here](//neo4j.com/download). To make working with this data even easier, we've created a [Neo4j Sandbox Trumpworld example](//neo4j.com/sandbox-v2). In addition there are some embedded Neo4j Browser Guides for working with the dataset (introducing Cypher, interesting queries, applying social network analysis techniques to the dataset, etc. )  
 
-**You can access the instance [here](http://bit.ly/trumpworld) with the username/password trumpworld/trumpworld.**
+**You can spin up your own Trumpworld Graph Neo4j instance by signing into the Sanbox [here](//neo4j.com/sandbox-v2).**
 
-[![](/public/img/trump-guides.png)](http://bit.ly/trumpworld)
-*The hosted Neo4j instance includes Neo4j Browser Guides for working with the data in Neo4j*
+[![](/public/img/trump-guides.png)](//neo4j.com/sandbox-v2)
+*The Neo4j Sandbox instance includes Neo4j Browser Guides for working with the data in Neo4j*
 
 Here are some ideas to get your started:
 
