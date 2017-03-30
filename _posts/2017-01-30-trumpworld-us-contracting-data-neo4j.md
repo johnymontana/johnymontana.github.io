@@ -2,10 +2,10 @@
 layout: post
 title: Combining The BuzzFeed Trumpworld Graph with Government Contracting Data in Neo4j
 introtext: One of the powers of working with graph databases is the ability to combine disparate datasets and query across them. Today we'll look at how we can combine the BuzzFeed Trumpworld graph with data about federal government contracts from USASpending.gov, allowing us to examine any government contracts that were awarded to organizations that appear in Trumpworld.
-mainimage: /public/img/vornado-graph-trump.png
+mainimage: /public/img/vornado-graph-trump.svg
 ---
 
-![](/public/img/vornado-graph-trump.png){: .center-image}
+![](/public/img/vornado-graph-trump.svg){: .center-image}
 
 One of the powers of working with graph databases is the ability to combine disparate datasets and query across them. Today we'll look at how we can combine the BuzzFeed Trumpworld graph with data about federal government contracts from USASpending.gov, allowing us to examine any government contracts that were awarded to organizations that appear in Trumpworld.
 
@@ -215,7 +215,7 @@ MATCH p=shortestPath( (donald)-[*]-(c) )
 RETURN *
 ~~~
 
-![](/public/img/vornado-graph-trump.png)
+![](/public/img/vornado-graph-trump.svg)
 *The shortest path from a specific contract to Donald Trump.*
 
 Let's digest the result of this query. This graph visualization is showing us a contract awarded by the Federal Prison System for the lease of facilities that was awarded to a real estate company whose parent company is an investor in a company whose CEO is the son-in-law (and close advisor) of Donald Trump.
@@ -233,7 +233,22 @@ MATCH p=allShortestPaths( (donald)-[*]-(c) )
 RETURN *
 ~~~
 
-![](/public/img/vornado-graph-trump-all.png)
+![](/public/img/vornado-graph-trump-2.svg)
+*ALL shortest paths from a specific contract to Donald Trump.*
+
+
+If we expand the length of the path a bit we can see a few more potentially interesting connections:
+
+~~~
+MATCH (c:Contract {piid: "DJU4500517056"})
+MATCH (c)<-[:ISSUED_CONTRACT]-(a:Agency)
+MATCH (donald:Person {name: "DONALD J. TRUMP"})
+MATCH p=( (donald)-[*1..6]-(c) )
+RETURN *
+~~~
+
+
+![](/public/img/vornado-graph-trump-all.svg)
 *ALL shortest paths from a specific contract to Donald Trump.*
 
 
