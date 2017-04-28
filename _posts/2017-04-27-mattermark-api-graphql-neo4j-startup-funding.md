@@ -42,7 +42,7 @@ Despite what the name may imply, GraphQL is **not** a query language for graph d
 
 > GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
-So what does it have to do with graphs? GraphQL makes the observation that all application data is a graph (think of orders that contain products - that's a graph!), regardless of how it is actually stored ( in a realtional database, document database, etc), intuitively application data is a graph. GraphQL then allows developers to express their data as a graph and query for the data they want out of this graph from the client.
+So what does it have to do with graphs? GraphQL makes the observation that all application data is a graph (think of orders that contain products - that's a graph!). Regardless of how it is actually stored (in a relational database, document database, etc) intuitively, application data is a graph since application data is all about objects and how they are connected. GraphQL then allows developers to express their data as a graph and query for the data they want out of this graph from the client.
 
 Let's take a look at a simple example using the Mattermark GraphQL API:
 
