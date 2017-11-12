@@ -12,14 +12,14 @@ Last week as a result of the House Intelligence Select Committee investigation, 
 
 # Russian Twitter Trolls
 
-While Twitter released the screen names and user ids of these accounts, they did not release any data (such as tweets or follower network information) associated with the accounts. In fact, Twitter has suspended these accounts which means their tweets have been removed from Twitter.com and are no longer accessible through the Twitter API. Analyzing the tweets made by these accounts is the first step in understanding how social media accounts run by Russia may have been used to influence the US Election. So our first is simply to find potential sources for the data.
+While Twitter released the screen names and user ids of these accounts, they did not release any data (such as tweets or follower network information) associated with the accounts. In fact, Twitter has suspended these accounts which means their tweets have been removed from Twitter.com and are no longer accessible through the Twitter API. Analyzing the tweets made by these accounts is the first step in understanding how social media accounts run by Russia may have been used to influence the US Election. So our first step is simply to find potential sources for the data.
 
 
 # Internet Archive
 
 [Internet Archive](https://archive.org/) is a non-profit library that provides cached version of some websites: a snapshot of a webpage at a given point in time that can be viewed later. One option for obtaining some of the Russian Troll tweets is by using Internet Archive to find any Twitter user pages that may have been cached by Internet Archive.
 
-For example, if you visit [http://web.archive.org/web/20170818065026/https:/twitter.com/TEN_GOP](http://web.archive.org/web/20170818065026/https:/twitter.com/TEN_GOP) we can see the Twitter page for @TEN_GOP, one of the Russia Troll accounts that was designed to look like an account associate with the Tennessee Republican party.
+For example, if you visit [http://web.archive.org/web/20170818065026/https:/twitter.com/TEN_GOP](http://web.archive.org/web/20170818065026/https:/twitter.com/TEN_GOP) we can see the Twitter page for @TEN_GOP, one of the Russia Troll accounts that was designed to look like an account associated with the Tennessee Republican party.
 
 ![](/public/img/russian-twitter-trolls/ten_gop_timeline.png)
 
@@ -53,7 +53,7 @@ with open('./data/avail_urls.txt', 'w') as f:
                 f.write(item['archived_snapshots']['closest']['url'] + '\n')
 {% endhighlight %}
 
-With this, we end up with a file `twitter_handle_urls.csv` that contains a list of Internet Archive urls for any of the Russian troll accounts that were archived by Internet Archive.
+With this, we end up with a file `twitter_handle_urls.csv` that contains a list of Internet Archive urls for any of the Russian troll accounts that were archived by Internet Archive. Unfortunately, we only find just over 100 Russia Troll accounts that were cached by Internet Archive. This is just a tiny sample of the overall accounts, but we should still be able to scrape tweets for these 100 users.
 
 ## Scraping Twitter Profile Pages
 
@@ -366,10 +366,10 @@ type Link {
 
 type Query {
 	Hashtag(tag: ID, first: Int, offset: Int): [Hashtag]
-  TweetsByText(text: String): [Tweet]
-
 }
 ~~~
+
+Our GraphQL schema defines the types and fields available in the data, as well as the entry points for our GraphQL service. In this case we have a single entry point `Hashtag`, allowing us to search for tweets by hashtag.
 
 With the [neo4j-graphql-js](https://github.com/neo4j-graphql/neo4j-graphql-js) integration, the GraphQL schema maps to the graph database model and translates any arbitrary GraphQL query to Cypher, allowing anyone to query the data through the GraphQL API without writing Cypher.
 
