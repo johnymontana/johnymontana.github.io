@@ -232,15 +232,15 @@ RETURN *
 ![](/public/img/russian-twitter-trolls/ten_gop_tweets.png)
 
 ~~~
-// What hashtags are used by the most users in the dataset
+// What are the most common hashtags
 MATCH (u:User)-[:POSTED]->(t:Tweet)-[:HAS_TAG]->(ht:Hashtag)
-WITH ht.tag AS hashtag, COLLECT(u.screen_name) AS users
-RETURN hashtag, SIZE(users) AS num_users ORDER BY num_users DESC LIMIT 10
+RETURN ht.tag AS hashtag, COUNT(*) AS num
+ORDER BY num DESC LIMIT 10
 
 
 
 ╒══════════════════════╤═══════════╕
-│"hashtag"             │"num_users"│
+│"hashtag"             │"num"│
 ╞══════════════════════╪═══════════╡
 │"JugendmitMerkel"     │90         │
 ├──────────────────────┼───────────┤
