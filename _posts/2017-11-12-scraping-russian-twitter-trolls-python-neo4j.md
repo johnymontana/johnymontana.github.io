@@ -165,7 +165,7 @@ We end up finding about 1500 tweets from 187 Twitter accounts. This is only a fr
 # Importing Into Neo4j
 
 
-Now that we have our scraped tweet data we're ready to insert into Neo4j. We'll do this by loading the JSON data and passing it as a parameter to a Cypher query, using the Python driver for Neo4j.
+Now that we have our scraped tweet data we're ready to insert into Neo4j. We have [several options for importing data into Neo4j](https://neo4j.com/developer/guide-importing-data-and-etl/). We'll do our import by loading the JSON data and passing it as a parameter to a Cypher query, using the Python driver for Neo4j.
 
 We'll use a simple graph data model, treating Hashtags and Links as nodes in the graph, as well as the Tweet and User who posted the tweet.
 
