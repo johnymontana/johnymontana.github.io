@@ -12,7 +12,7 @@ The [Paradise Papers](https://www.icij.org/investigations/paradise-papers/) is t
 
 ## The Data
 
-Anyone can download the Paradise Papers data as a Neo4j database from the [ICIJ's Offshore Leaks site](https://offshoreleaks.icij.org/pages/database).
+Anyone can download the Offshore Leaks database as a Neo4j database from the [ICIJ's Offshore Leaks site](https://offshoreleaks.icij.org/pages/database).
 
 Here's what the data model looks like:
 
@@ -66,7 +66,7 @@ dbms.security.procedures.unrestricted=apoc.*
 apoc.spatial.geocode.provider=google
 apoc.spatial.geocode.osm.throttle=1000 # be sure to throttle if using the free OSM API
 apoc.spatial.geocode.google.throttle=0 # no need to throttle if using the PAID Google API
-apoc.spatial.geocode.google.key=INSERT_GOOGLE
+apoc.spatial.geocode.google.key=YOUR_GOOGLE_API_KEY_HERE
 
 {% endhighlight %}
 
@@ -195,7 +195,7 @@ So what we want to do is iterate through all the `Address` nodes in the Paradise
 
 {% highlight cypher %}
 MATCH (a:Address) WITH a LIMIT 1
-CALL apoc.spatial.geocodeOnce(a.address) YIELD location
+CALL apoc.spatial.geocodeOnce(a.name) YIELD location
 WITH a, location.latitude AS latitude, location.longitude AS longitude,
   location.description AS description
 SET a.latitude = latitude,
@@ -216,7 +216,7 @@ We can use [`apoc.periodic.iterate`](https://neo4j-contrib.github.io/neo4j-apoc-
 
 {% highlight cypher %}
 CALL apoc.periodic.iterate('MATCH (a:Address) RETURN a',
-'CALL apoc.spatial.geocodeOnce(a.address) YIELD location
+'CALL apoc.spatial.geocodeOnce(a.name) YIELD location
   WITH a, location.latitude AS latitude, location.longitude AS longitude,
   location.description AS description
 SET a.latitude = latitude,
