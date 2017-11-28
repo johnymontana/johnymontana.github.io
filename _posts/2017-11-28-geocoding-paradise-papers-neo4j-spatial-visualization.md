@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Geocoding Paradise Papers Addresses In Neo4j To Build Interactive Geographic Data Visualizations
+title: Geocoding Paradise Papers Addresses In Neo4j To Build Interactive Geographical Data Visualizations
 introtext: This post explores how to build spatial data visualizations using address data from the Paradise Papers leak of offshore corporations and the people connected to them. First, we geocode all addresses in the leaked data, then build a heatmap and interactive map for exploring the data of offshore legal entities.
 mainimage: /public/img/ppviz/heatmap1.png
 ---
@@ -309,7 +309,7 @@ RETURN DISTINCT e.name AS offshore_entity, e.jurisdiction_description AS jurisdi
 
 but we can also build really cool interactive map based visualizations with our data!
 
-## Building An Interactive Geographic Data Visualization
+## Building An Interactive Geographical Data Visualization
 
 Using Leaflet.js to build an interactive geographic visualization, we want to pull data from Neo4j and annotate a map. To do this we'll make use of Leaflet.js (and a couple of plugins!), and the Javascript driver for Neo4j.
 
@@ -350,7 +350,7 @@ This gives us a map:
 
 now let's add some data to it! Leaflet allows us to create multiple layers and show/hide various layers. So we create a base map layer (our map tiles) and our data visualizations live in map layers that are plotted on top of the map tiles.
 
-We'll make use of two types of geographic data visualizations - a heat map and marker clusters.
+We'll make use of two types of geographical data visualizations - a heat map and marker clusters.
 
 
 ### Marker Clusters
@@ -388,7 +388,7 @@ But once we zoom in we can see each individual marker:
 
 ### Heatmap
 
-A heatmap is a data visualization (often imposed on a map, but could be done on a matrix as well) where colors are used to represent data values. In a geographic data visualization, where data points are often sparse, some form of interpolation is often used.
+A heatmap is a data visualization (often imposed on a map, but could be done on a matrix as well) where colors are used to represent data values. In a geographical data visualization, where data points are often sparse, some form of interpolation is often used.
 
 There are a [few different Leaflet heatmap plugins](http://leafletjs.com/plugins.html#heatmaps ) we can choose from but I like [heatcanvas](https://github.com/sunng87/heatcanvas) as its API provides several configuration options for configuring the formula used to determine the value of a pixel.
 
@@ -470,14 +470,14 @@ And we can also explore the markers to find officers and connected offshore lega
 [![](/public/img/ppviz/marker.png)](http://www.lyonwj.com/pp-viz/heatmap/)
 
 
-These type of geographic data visualizations are particularly useful for data journalists who are interested in finding stories relevant for a certain geographic area.
+These type of geographical data visualizations are particularly useful for data journalists who are interested in finding stories relevant for a certain geographic area.
 
 
 All code is available on [Github](https://github.com/johnymontana/pp-viz) and you can try the live map visualization online [here](http://www.lyonwj.com/pp-viz/heatmap/).
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@lyonwj">
-<meta name="twitter:title" content="Geocoding Paradise Papers Addresses In Neo4j To Build Interactive Geographic Data Visualizations">
+<meta name="twitter:title" content="Geocoding Paradise Papers Addresses In Neo4j To Build Interactive Geographical Data Visualizations">
 <meta name="twitter:description" content="This post explores how to build spatial data visualizations using address data from the Paradise Papers leak of offshore corporations and the people connected to them. First, we geocode all addresses in the leaked data, then build a heatmap and interactive map for exploring the data of offshore legal entities.">
 <meta name="twitter:creator" content="@lyonwj">
 <meta name="twitter:image:src" content="http://www.lyonwj.com/public/img/ppviz/heatmap1.png">
