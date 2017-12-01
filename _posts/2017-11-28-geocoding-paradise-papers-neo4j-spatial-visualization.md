@@ -12,7 +12,7 @@ The [Paradise Papers](https://www.icij.org/investigations/paradise-papers/) is t
 
 ## The Data
 
-Anyone can download the Offshore Leaks database as a Neo4j database from the [ICIJ's Offshore Leaks site](https://offshoreleaks.icij.org/pages/database).
+Anyone can download the Paradise Papers database as a Neo4j database from the [ICIJ's Offshore Leaks site](https://offshoreleaks.icij.org/pages/database). *Note that this database includes data from a number of ICIJ investigations including the Panama Papers, Paradise Papers, Bahamas Leaks and Offshore Leaks.*
 
 Here's what the data model looks like:
 
