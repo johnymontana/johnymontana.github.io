@@ -473,7 +473,7 @@ And we can also explore the markers to find officers and connected offshore lega
 These type of geographical data visualizations are particularly useful for data journalists who are interested in finding stories relevant for a certain geographic area.
 
 
-All code is available on [Github](https://github.com/johnymontana/pp-viz) and you can try the live map visualization online [here](http://www.lyonwj.com/pp-viz/heatmap/).
+All code is available on [Github](https://github.com/johnymontana/pp-viz) and you can try the [live map visualization](http://www.lyonwj.com/pp-viz/heatmap/). You can [download the Paradise Papers Neo4j database from ICIJ](https://offshoreleaks.icij.org/pages/database), or try it as a [Neo4j Sandbox.](https://neo4j.com/sandbox-v2/)
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@lyonwj">
