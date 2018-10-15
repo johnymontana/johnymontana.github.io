@@ -7,7 +7,7 @@ relative_permalinks: false
 # Setup
 title:               William Lyon
 tagline:             'Software, technology, startups, etc...'
-description:         'Hi! I''m Will and this is where I write about software, technology, and startup stuff. You can find more from me < a href="https://medium.com/@lyonwj">on Medium </a> and <a href="https://twitter.com/lyonwj">@lyonwj on Twitter.</a>'
+description:         'Hi! I''m Will and this is where I write about software, technology, and startup stuff. You can find more from me <a href="https://medium.com/@lyonwj">on Medium </a> and <a href="https://twitter.com/lyonwj">@lyonwj on Twitter.</a>'
 url:                 http://lyonwj.com
 baseurl:             ''
 paginate:            5
